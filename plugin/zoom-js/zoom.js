@@ -53,9 +53,12 @@ var zoom = (function(){
 		document.body.style.WebkitTransition = '-webkit-transform 0.8s ease';
 	}
 
-	// Zoom out if the user hits escape
+	// Zoom out if the user hits backspace or escape.
+	// With reveal, escape also triggers the overview view, so it is not a good
+	// key to use to zoom out; note that we must still zoom out when pressing escape
+	// or else the overview itself will be zoomed.
 	document.addEventListener( 'keyup', function( event ) {
-		if( level !== 1 && event.keyCode === 27 ) {
+		if( level !== 1 && ( event.keyCode === 8 || event.keyCode === 27 ) ) {
 			zoom.out();
 		}
 	}, false );
